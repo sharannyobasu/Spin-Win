@@ -117,7 +117,7 @@ function spinwheel(){
             }
         });
         this.nspin=0;
-        this.add.text(w/2-265, h/2-70, "Spins left : " + this.nspin, {
+        this.add.text(w/2-265, h/2-70, "Spins left : " +this.nspin, {
             font: "bold 20px Helvetica",
             align: "center",
             color: "#008037"
