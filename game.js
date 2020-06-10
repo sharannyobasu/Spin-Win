@@ -35,7 +35,7 @@ function create(){
     this.button.setScale(0.10);
     this.button.setInteractive({ cursor: 'pointer'
     });
-    this.input.on("pointerdown", spinwheel,this);
+    this.button.on("pointerdown", spinwheel,this);
     
     this.add.text(w/2-265, h/2-100, "Tap on SPIN", {
             font: "bold 20px Helvetica",
@@ -43,7 +43,7 @@ function create(){
             color: "#008037"
     });
     
-    this.prizeText = this.add.text(w/2-320, h/2 +100, "", {
+    this.prizeText = this.add.text(w/2-280, h/2 +100, "", {
             font: "bold 20px Helvetica",
             align: "center",
             color: "#008037"
@@ -66,7 +66,7 @@ function create(){
     this.button.on("pointerdown",spinwheel,this);
     this.add.text(w/2-265, h/2-70, "Spins left : " + this.nspin--, {
             font: "bold 20px Helvetica",
-            align: "center",
+            textAlign: "center",
             color: "#008037"
     });
 }
@@ -86,7 +86,7 @@ function spinwheel(){
         let rounds = Phaser.Math.Between(2,4);
         let extra_degrees = Phaser.Math.Between(0,7)*50;
         let total_angle = rounds*1440 + extra_degrees;
-        let n = results.count - 1 - Math.floor(extra_degrees/(360/8));
+        let n1 = results.count - 1 - Math.floor(extra_degrees/(360/results.count));
         this.canSpin = false;
         this.sound.play('spinmusic');
         
@@ -95,17 +95,17 @@ function spinwheel(){
             angle: total_angle,
             ease:"Cubic.easeOut",
             duration: 11000,
-            
+            callbackScope:this,
         
             onComplete: function(tween){
                 // displaying prize text
                 
-                this.prizeText.setText("You win " + results.names[n]);
-                if(results.names[n]=="NOTHING !!")
+                this.prizeText.setText("You win " + results.names[n1]);
+                if(results.names[n1]=="NOTHING !!")
                     {
                         this.sound.play('sad');
                     }
-                else if(results.names[n]=="Amazon Vouchers !" || results.names[n]=="Netflix Subscription")
+                else if(results.names[n1]=="Amazon Vouchers !" || results.names[n1]=="Netflix Subscription")
                     {
                         this.sound.play('thuglife');
                     }
